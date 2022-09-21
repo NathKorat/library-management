@@ -1,0 +1,334 @@
+@startuml
+
+/' diagram meta data start
+config=StructureConfiguration;
+{
+  "projectClassification": {
+    "searchMode": "OpenProject", // OpenProject, AllProjects
+    "includedProjects": "",
+    "pathEndKeywords": "*.impl",
+    "isClientPath": "",
+    "isClientName": "",
+    "isTestPath": "",
+    "isTestName": "",
+    "isMappingPath": "",
+    "isMappingName": "",
+    "isDataAccessPath": "",
+    "isDataAccessName": "",
+    "isDataStructurePath": "",
+    "isDataStructureName": "",
+    "isInterfaceStructuresPath": "",
+    "isInterfaceStructuresName": "",
+    "isEntryPointPath": "",
+    "isEntryPointName": "",
+    "treatFinalFieldsAsMandatory": false
+  },
+  "graphRestriction": {
+    "classPackageExcludeFilter": "",
+    "classPackageIncludeFilter": "",
+    "classNameExcludeFilter": "",
+    "classNameIncludeFilter": "",
+    "methodNameExcludeFilter": "",
+    "methodNameIncludeFilter": "",
+    "removeByInheritance": "", // inheritance/annotation based filtering is done in a second step
+    "removeByAnnotation": "",
+    "removeByClassPackage": "", // cleanup the graph after inheritance/annotation based filtering is done
+    "removeByClassName": "",
+    "cutMappings": false,
+    "cutEnum": true,
+    "cutTests": true,
+    "cutClient": true,
+    "cutDataAccess": true,
+    "cutInterfaceStructures": false,
+    "cutDataStructures": false,
+    "cutGetterAndSetter": true,
+    "cutConstructors": true
+  },
+  "graphTraversal": {
+    "forwardDepth": 6,
+    "backwardDepth": 6,
+    "classPackageExcludeFilter": "",
+    "classPackageIncludeFilter": "",
+    "classNameExcludeFilter": "",
+    "classNameIncludeFilter": "",
+    "methodNameExcludeFilter": "",
+    "methodNameIncludeFilter": "",
+    "hideMappings": false,
+    "hideDataStructures": false,
+    "hidePrivateMethods": true,
+    "hideInterfaceCalls": true, // indirection: implementation -> interface (is hidden) -> implementation
+    "onlyShowApplicationEntryPoints": false, // root node is included
+    "useMethodCallsForStructureDiagram": "ForwardOnly" // ForwardOnly, BothDirections, No
+  },
+  "details": {
+    "aggregation": "GroupByClass", // ByClass, GroupByClass, None
+    "showClassGenericTypes": true,
+    "showMethods": true,
+    "showMethodParameterNames": true,
+    "showMethodParameterTypes": true,
+    "showMethodReturnType": true,
+    "showPackageLevels": 2,
+    "showDetailedClassStructure": true
+  },
+  "rootClass": "Library.Management.Student",
+  "extensionCallbackMethod": "" // qualified.class.name#methodName - signature: public static String method(String)
+}
+diagram meta data end '/
+
+
+
+digraph g {
+    rankdir="TB"
+    splines=polyline
+    
+
+'nodes 
+subgraph cluster_193483875 { 
+   	label=Management
+	labeljust=l
+	fillcolor="#ececec"
+	style=filled
+   
+   Admin159471510[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)Admin</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+ addResource(name: String, type: int): int</TD></TR>
+<TR><TD ALIGN="LEFT" >+ addUser(userName: String, password: String, type: int): int</TD></TR>
+<TR><TD ALIGN="LEFT" >+ removeResource(resourceID: int): boolean</TD></TR>
+<TR><TD ALIGN="LEFT" >+ removeUser(userID: int): boolean</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+Book159471510[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)Book</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" ># issueResource(userID: int): boolean</TD></TR>
+<TR><TD ALIGN="LEFT" ># renewResource(days: int): boolean</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+Borrowable159471510[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)Borrowable</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >#   available: boolean [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >#   dueDate: Date [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >#   issueDate: Date [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >#   issuedTo: int [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >#   relatedFineID: int [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >#   requests: Vector&lt;Integer&gt; [0..*]</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" ># checkStatus(): boolean</TD></TR>
+<TR><TD ALIGN="LEFT" ># issueResource(userID: int): boolean</TD></TR>
+<TR><TD ALIGN="LEFT" ># removeRequest(userID: int): boolean</TD></TR>
+<TR><TD ALIGN="LEFT" ># returnResource(): boolean</TD></TR>
+<TR><TD ALIGN="LEFT" ># viewRequests()</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+Borrower159471510[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)Borrower</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >#   fines: Set&lt;Fine&gt; [0..*]</TD></TR>
+<TR><TD ALIGN="LEFT" >#   issuedResources: Vector&lt;Integer&gt; [0..*]</TD></TR>
+<TR><TD ALIGN="LEFT" >#   maxResources: int [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >#   requestedResources: Vector&lt;Integer&gt; [0..*]</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" ># deleteRequest(resID: int)</TD></TR>
+<TR><TD ALIGN="LEFT" ># findIssued(id: int): boolean</TD></TR>
+<TR><TD ALIGN="LEFT" ># tryIssue(res: ArrayList&lt;LibraryResource&gt;): boolean</TD></TR>
+<TR><TD ALIGN="LEFT" ># tryRenew(resID: int): boolean</TD></TR>
+<TR><TD ALIGN="LEFT" ># tryReturn(resourceID: int): boolean</TD></TR>
+<TR><TD ALIGN="LEFT" ># viewDueDates()</TD></TR>
+<TR><TD ALIGN="LEFT" ># viewFines()</TD></TR>
+<TR><TD ALIGN="LEFT" ># viewIssueDates()</TD></TR>
+<TR><TD ALIGN="LEFT" ># viewIssued()</TD></TR>
+<TR><TD ALIGN="LEFT" ># viewOverdue()</TD></TR>
+<TR><TD ALIGN="LEFT" ># viewRequests()</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+CoursePack159471510[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)CoursePack</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" ># issueResource(userID: int): boolean</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+Driver159471510[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)Driver</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >#   myLibrary: Library [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >#   sc: Scanner [0..1]</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" ># addResourceIO(admin: Admin, type: int)</TD></TR>
+<TR><TD ALIGN="LEFT" ># addUserIO(admin: Admin, type: int)</TD></TR>
+<TR><TD ALIGN="LEFT" ># borrowIO(borrower: Borrower, type: int)</TD></TR>
+<TR><TD ALIGN="LEFT" ># deleteRequestIO(borrower: Borrower)</TD></TR>
+<TR><TD ALIGN="LEFT" ># loginIO(type: int)</TD></TR>
+<TR><TD ALIGN="LEFT" >+ main(argv: String[])</TD></TR>
+<TR><TD ALIGN="LEFT" ># removeResourceIO(admin: Admin)</TD></TR>
+<TR><TD ALIGN="LEFT" ># removeUserIO(admin: Admin)</TD></TR>
+<TR><TD ALIGN="LEFT" ># renewResourceIO(borrower: Borrower)</TD></TR>
+<TR><TD ALIGN="LEFT" ># returnResourceIO(borrower: Borrower)</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+Faculty159471510[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)Faculty</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+Fine159471510[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)Fine</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >#   fine: int [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >#   fineID: int [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >#   resourceID: int [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >#   userID: int [1]</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" ># updateFine(fine: int)</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+Library159471510[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)Library</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >#   libraryName: String [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >+   resources: ArrayList&lt;LibraryResource&gt; [0..*]</TD></TR>
+<TR><TD ALIGN="LEFT" >#   toBeFined: Set&lt;Fine&gt; [0..*]</TD></TR>
+<TR><TD ALIGN="LEFT" >+   users: ArrayList&lt;LibraryUser&gt; [0..*]</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" ># addToBeFined(fine: Fine): boolean</TD></TR>
+<TR><TD ALIGN="LEFT" ># findResource(resID: int): LibraryResource</TD></TR>
+<TR><TD ALIGN="LEFT" ># findResource(resName: String): ArrayList&lt;LibraryResource&gt;</TD></TR>
+<TR><TD ALIGN="LEFT" ># findUser(name: String): LibraryUser</TD></TR>
+<TR><TD ALIGN="LEFT" ># findUser(userID: int): LibraryUser</TD></TR>
+<TR><TD ALIGN="LEFT" >+ getInstance(name: String): Library</TD></TR>
+<TR><TD ALIGN="LEFT" >+ getLibraryStats()</TD></TR>
+<TR><TD ALIGN="LEFT" ># removeResource(resourceID: int): boolean</TD></TR>
+<TR><TD ALIGN="LEFT" ># removeToBeFined(fine: Fine): boolean</TD></TR>
+<TR><TD ALIGN="LEFT" ># removeUser(userID: int): boolean</TD></TR>
+<TR><TD ALIGN="LEFT" ># updateFines()</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+LibraryResource159471510[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)LibraryResource</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >#   resourceID: int [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >#   resourceName: String [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >#   type: int [1]</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+LibraryUser159471510[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)LibraryUser</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >#   password: String [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >#   type: int [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >#   userID: int [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >#   userName: String [0..1]</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" ># login(userName: String, password: String): boolean</TD></TR>
+<TR><TD ALIGN="LEFT" ># logout(): boolean</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+Magazine159471510[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)Magazine</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+Student159471510[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)Student</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+} 
+
+'edges    
+Borrowable159471510 -> Book159471510[arrowhead=none, arrowtail=empty, dir=both];
+Borrowable159471510 -> CoursePack159471510[arrowhead=none, arrowtail=empty, dir=both];
+Borrower159471510 -> Faculty159471510[arrowhead=none, arrowtail=empty, dir=both];
+Borrower159471510 -> Fine159471510[label="fines
+[0..*]"];
+Borrower159471510 -> Student159471510[arrowhead=none, arrowtail=empty, dir=both];
+Driver159471510 -> Library159471510[label="myLibrary
+[0..1]"];
+Library159471510 -> Fine159471510[label="toBeFined
+[0..*]"];
+Library159471510 -> LibraryResource159471510[label="resources
+[0..*]"];
+Library159471510 -> LibraryUser159471510[label="users
+[0..*]"];
+LibraryResource159471510 -> Borrowable159471510[arrowhead=none, arrowtail=empty, dir=both];
+LibraryResource159471510 -> Magazine159471510[arrowhead=none, arrowtail=empty, dir=both];
+LibraryUser159471510 -> Admin159471510[arrowhead=none, arrowtail=empty, dir=both];
+LibraryUser159471510 -> Borrower159471510[arrowhead=none, arrowtail=empty, dir=both];
+    
+}
+@enduml
